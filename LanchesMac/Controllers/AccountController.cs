@@ -62,6 +62,7 @@ namespace LanchesMac.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _UserManager.AddToRoleAsync(user, "Member");
                     return RedirectToAction("Login", "Account");
                 }
                 else
@@ -79,6 +80,11 @@ namespace LanchesMac.Controllers
             HttpContext.User = null;
             await _SingInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
